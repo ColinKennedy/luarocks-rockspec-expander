@@ -1,0 +1,43 @@
+name: 'LuaRocks rockspec expander'
+description: 'Generate a intermediary .rockspec file from some a template.rockspec'
+author: 'Colin Kennedy'
+branding:
+  color: 'green'
+  icon: 'moon'
+inputs:
+  input:
+    description: 'The template file to generate. e.g. template.rockspec'
+    required: true
+  output:
+    description: 'The name / path to write the generated .rockspec to. e.g. foo-scm-1.rockspec'
+    required: true
+  delete_input_after:
+    description: 'Remove the `input` from-disk after `output` is created.'
+    default: false
+    required: false
+runs:
+  using: 'composite'
+  steps:
+    - name: Clone luarocks-tag-release
+      uses: actions/checkout@v4
+      with:
+        repository: 'nvim-neorocks/luarocks-tag-release'
+        path: '.dependencies/luarocks-tag-release'
+
+    - name: Install A Lua Interpreter
+      uses: leafo/gh-actions-lua@v10
+      with:
+        # Neovim is compiled with LuaJIT so we might as well match. But it
+        # doesn't look like we can match it exactly.
+        #
+        # Reference:
+        #    https://github.com/leafo/gh-actions-lua/issues/49#issuecomment-2295071198
+        #
+        luaVersion: "luajit-openresty"
+
+    - name: Run Lua script
+      env:
+        LUA_PATH: '.dependencies/luarocks-tag-release/lua/?.lua;;'
+      shell: bash
+      run: |
+        luajit main.lua ${{ inputs.input }} ${{ inputs.output }} ${{ inputs.delete_input_after }}

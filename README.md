@@ -1,5 +1,4 @@
 # luarocks-rockspec-expander
-
 This is a hacky stopgap GitHub action that builds off of
 [luarocks-tag-release](https://github.com/nvim-neorocks/luarocks-tag-release).
 
@@ -8,18 +7,21 @@ once https://github.com/nvim-neorocks/luarocks-tag-release/issues/435 or somethi
 similar is made. But for now, this repository exists.
 
 
+## Requires
+An Ubuntu GitHub container
+
+
 ## How To Use
-TODO: Finish this
+Add this to your GitHub workflow `.yml` / `.yaml` file:
 
 ```yaml
-- use: ColinKennedy/luarocks-rockspec-expander@v1
+- name: Expand The Template Rockspec
+  uses: ColinKennedy/luarocks-rockspec-expander@master
   with:
     input: template.rockspec
-    output: my-plugin-scm-1.rockspec
+    output: package_name-scm-1.rockspec
 ```
-
-And then you can use this
 
 
 ## Example
-TODO Add this
+- [ColinKennedy/nvim-best-practices-plugin-template](https://github.com/ColinKennedy/nvim-best-practices-plugin-template/blob/main/.github/workflows/test.yml)
