@@ -38,6 +38,7 @@ runs:
     - name: Run Lua script
       env:
         LUA_PATH: '.dependencies/luarocks-tag-release/lua/?.lua;;'
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
       shell: bash
       run: |
-        luajit main.lua ${{ inputs.input }} ${{ inputs.output }} ${{ inputs.delete_input_after }}
+        luajit $GITHUB_ACTION_PATH/main.lua ${{ inputs.input }} ${{ inputs.output }} ${{ inputs.delete_input_after }}
