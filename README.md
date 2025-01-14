@@ -8,7 +8,7 @@ similar is made. But for now, this repository exists.
 
 
 ## Requires
-An Ubuntu GitHub container
+- A Linux, MacOS, or Windows container
 
 
 ## How To Use
