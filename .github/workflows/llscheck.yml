@@ -40,18 +40,25 @@ jobs:
         tool_versions: |
           lua-language-server latest
 
+    - name: Install LuaRocks
+      # TODO: Replace with https://github.com/luarocks/gh-actions-luarocks after v6+
+      uses: ColinKennedy/gh-actions-luarocks@v1.0.0
+
     - name: Clone dependencies - luarocks-tag-release
       uses: actions/checkout@v4
       with:
         repository: "nvim-neorocks/luarocks-tag-release"
         path: ".dependencies/luarocks-rockspec-expander"
 
-    - uses: leafo/gh-actions-luarocks@v5
+    - name: Print LuaRocks Versions
+      run: |
+        luarocks --version
+
     - name: Install llscheck
       run: |
         luarocks install llscheck
 
-    - name: Print Version
+    - name: Print lua-language-server Version
       run: |
         lua-language-server --version
 

@@ -66,7 +66,7 @@ runs:
     # The user hasn't installed lua yet. Let's do it for them
     - name: Install A Lua Interpreter
       if: ${{ steps.check-lua.outputs.needs_luajit_install == 'true' }}
-      uses: luarocks/gh-actions-lua@v10
+      uses: luarocks/gh-actions-lua@v11
       with:
         # Neovim is compiled with LuaJIT so we might as well match. But it
         # doesn't look like we can match it exactly.
